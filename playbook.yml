@@ -6,6 +6,12 @@
     # ============
     # apt packages
     # ============
+    - name: Add repositories to sources list
+      ansible.builtin.apt_repository:
+        repo: "{{ item }}"
+        state: present
+      loop: "{{ apt.repositories }}"
+
     - name: Update packages 
       become: true
       package:
@@ -82,61 +88,15 @@
     # =========
     - name: Remove shortcuts to favourite applications
       dconf:
-        key: "/org/gnome/shell/keybindings/switch-to-application-1"
+        key: "/org/gnome/shell/keybindings/switch-to-application-{{ item }}"
         value: ['']
-    - name: Remove shortcuts to favourite applications
-      dconf:
-        key: "/org/gnome/shell/keybindings/switch-to-application-2"
-        value: ['']
-    - name: Remove shortcuts to favourite applications
-      dconf:
-        key: "/org/gnome/shell/keybindings/switch-to-application-3"
-        value: ['']
-    - name: Remove shortcuts to favourite applications
-      dconf:
-        key: "/org/gnome/shell/keybindings/switch-to-application-4"
-        value: ['']
-    - name: Remove shortcuts to favourite applications
-      dconf:
-        key: "/org/gnome/shell/keybindings/switch-to-application-5"
-        value: ['']
-    - name: Remove shortcuts to favourite applications
-      dconf:
-        key: "/org/gnome/shell/keybindings/switch-to-application-6"
-        value: ['']
-    - name: Remove shortcuts to favourite applications
-      dconf:
-        key: "/org/gnome/shell/keybindings/switch-to-application-7"
-        value: ['']
-    - name: Remove shortcuts to favourite applications
-      dconf:
-        key: "/org/gnome/shell/keybindings/switch-to-application-8"
-        value: ['']
-    - name: Remove shortcuts to favourite applications
-      dconf:
-        key: "/org/gnome/shell/keybindings/switch-to-application-9"
-        value: ['']
+      loop: [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     - name: Shortcuts to switch workspaces
       dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-1"
-        value: ['<Super>1']
-    - name: Shortcuts to switch workspaces
-      dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-2"
-        value: ['<Super>2']
-    - name: Shortcuts to switch workspaces
-      dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-3"
-        value: ['<Super>3']
-    - name: Shortcuts to switch workspaces
-      dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-4"
-        value: ['<Super>4']
-    - name: Shortcuts to move windows to workspaces
-      dconf:
-        key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-1"
-        value: ['<Super><Shift>1']
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-{{ item }}"
+        value: ['<Super>{{ item }}']
+      loop: [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     - name: Close windows
       dconf:
@@ -172,6 +132,31 @@
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/toggle-maximized"
         value: ['<Alt>F10','<Super>i']
+
+    - name: Use Super+d for launching overview
+      dconf:
+        key: "/org/gnome/shell/keybindings/toggle-overview"
+        value: ['<Super>d']
+
+    - name: Switch to workspace left
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-left" 
+        value: ['<Super>Page_Up', '<Super><Alt>Left', '<Control><Alt>Left', '<Super>comma']
+
+    - name: Switch to workspace right
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-right" 
+        value: ['<Super>Page_Down', '<Super><Alt>Right', '<Control><Alt>Right', '<Super>period']
+
+    - name: Move window to workspace left
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-left"
+        value: ['<Super><Shift>Page_Up', '<Super><Shift><Alt>Left', '<Control><Shift><Alt>Left', '<Super><Shift>comma']
+
+    - name: Move window to workspace right
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-right"
+        value: ['<Super><Shift>Page_Down', '<Super><Shift><Alt>Right', '<Control><Shift><Alt>Right', '<Super><Shift>period']
 
     # ====================
     # GNOME Configurations
@@ -211,3 +196,102 @@
         key: "/org/gnome/desktop/input-sources/xkb-options"
         value: ['caps:escape']
 
+    - name: Disable event sounds
+      dconf:
+        key: "/org/gnome/desktop/sound/event-sounds"
+        value: "false"
+
+           
+    # ===
+    # ZSH
+    # ===
+    - name: Install zsh
+      become: yes
+      ansible.builtin.apt:
+        name:
+          - zsh
+        state: present
+
+    - name: Clone dotfiles
+      ansible.builtin.git:
+        repo: 'https://github.com/santisoler/dotfiles'
+        dest: '~/.dotfiles'
+        clone: yes
+        update: yes
+
+    - name: Stow zsh configs
+      ansible.builtin.shell: |
+        cd ~/.dotfiles
+        stow zsh
+
+    - name: Change shell to zsh
+      become: yes
+      ansible.builtin.user:
+        name: "{{ ansible_env.USER }}"
+        shell: /usr/bin/zsh
+
+
+    # ======
+    # Neovim
+    # ======
+    - name: Install Neovim dependencies and useful packages
+      become: yes
+      ansible.builtin.apt:
+        name:
+          - npm
+          - python3.11-venv
+          - libtree-sitter0
+        state: present
+
+    - name: Download Neovim appimage
+      ansible.builtin.get_url:
+        url: "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+        dest: /tmp/nvim
+        mode: '0755'
+      register: download_result
+      until: download_result is succeeded
+      retries: 3
+      delay: 5
+
+    - name: Copy appimage to /usr/local/bin
+      become: yes
+      ansible.builtin.copy:
+        src: "/tmp/nvim"
+        dest: "/usr/local/bin/nvim"
+        mode: preserve
+
+    - name: Clone dotfiles
+      ansible.builtin.git:
+        repo: 'https://github.com/santisoler/dotfiles'
+        dest: '~/.dotfiles'
+        clone: yes
+        update: yes
+
+    - name: Stow Neovim configs
+      ansible.builtin.shell: |
+        cd ~/.dotfiles
+        stow nvim
+
+    - name: Install packages with packer
+      ansible.builtin.shell: |
+        nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+    - name: Install lsp and linters with Mason
+      ansible.builtin.shell: |
+        nvim --headless -c 'MasonInstall {{ item }}' -c "quitall"
+      loop:
+        - pyright
+        - black
+        - flake8
+        - mypy
+        - ruff-lsp
+        - prettier
+        - rstcheck
+        - stylelint
+        # - cppcheck
+        # - chktex 
+        - proselint
+        - shellcheck
+        - markdownlint
+        - rstcheck
+        # - tidy
