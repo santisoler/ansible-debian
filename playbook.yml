@@ -82,39 +82,39 @@
     # =========
     - name: Remove shortcuts to favourite applications
       dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-1"
+        key: "/org/gnome/shell/keybindings/switch-to-application-1"
         value: ['']
     - name: Remove shortcuts to favourite applications
       dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-2"
+        key: "/org/gnome/shell/keybindings/switch-to-application-2"
         value: ['']
     - name: Remove shortcuts to favourite applications
       dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-3"
+        key: "/org/gnome/shell/keybindings/switch-to-application-3"
         value: ['']
     - name: Remove shortcuts to favourite applications
       dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-4"
+        key: "/org/gnome/shell/keybindings/switch-to-application-4"
         value: ['']
     - name: Remove shortcuts to favourite applications
       dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-5"
+        key: "/org/gnome/shell/keybindings/switch-to-application-5"
         value: ['']
     - name: Remove shortcuts to favourite applications
       dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-6"
+        key: "/org/gnome/shell/keybindings/switch-to-application-6"
         value: ['']
     - name: Remove shortcuts to favourite applications
       dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-7"
+        key: "/org/gnome/shell/keybindings/switch-to-application-7"
         value: ['']
     - name: Remove shortcuts to favourite applications
       dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-8"
+        key: "/org/gnome/shell/keybindings/switch-to-application-8"
         value: ['']
     - name: Remove shortcuts to favourite applications
       dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-9"
+        key: "/org/gnome/shell/keybindings/switch-to-application-9"
         value: ['']
 
     - name: Shortcuts to switch workspaces
@@ -208,6 +208,6 @@
 
     - name: Configure Caps Lock as extra escape
       dconf:
-        key: "/org.gnome.desktop.input-sources/xkb-options"
+        key: "/org/gnome/desktop/input-sources/xkb-options"
         value: ['caps:escape']
 
