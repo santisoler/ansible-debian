@@ -23,7 +23,7 @@ apt:
     - tree
     - ripgrep
     - xclip
-    - wipe 
+    - wipe
     - unzip
     - pdftk
     - pandoc

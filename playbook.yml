@@ -12,7 +12,7 @@
         state: present
       loop: "{{ apt.repositories }}"
 
-    - name: Update packages 
+    - name: Update packages
       become: true
       package:
         update_cache: yes
@@ -54,7 +54,7 @@
         state: present
         method: user
       when: flatpak.install is not defined or flatpak.install
-        
+
     # ================
     # GNOME Extensions
     # ================
@@ -72,7 +72,7 @@
       dconf:
         key: "/org/gnome/shell/enabled-extensions"
         value: "['user-theme@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com', 'Hide_Activities@shay.shayel.org', 'openweather-extension@jenslody.de', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'apps-menu@gnome-shell-extensions.gcampax.github.com', 'native-window-placement@gnome-shell-extensions.gcampax.github.com', 'no-overview@fthx']"
-    
+
     - name: Configure Dash to Dock (no intellihide)
       dconf:
         key: "/org/gnome/shell/extensions/dash-to-dock/intellihide"
@@ -82,7 +82,7 @@
       dconf:
         key: "/org/gnome/shell/extensions/dash-to-dock/hot-keys"
         value: "false"
-          
+
     # =========
     # Shortcuts
     # =========
@@ -140,12 +140,12 @@
 
     - name: Switch to workspace left
       dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-left" 
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-left"
         value: ['<Super>Page_Up', '<Super><Alt>Left', '<Control><Alt>Left', '<Super>comma']
 
     - name: Switch to workspace right
       dconf:
-        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-right" 
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-right"
         value: ['<Super>Page_Down', '<Super><Alt>Right', '<Control><Alt>Right', '<Super>period']
 
     - name: Move window to workspace left
@@ -163,7 +163,7 @@
     # ====================
     - name: Configure dark color scheme
       dconf:
-        key: "/org/gnome/desktop/interface/color-scheme" 
+        key: "/org/gnome/desktop/interface/color-scheme"
         value: "'prefer-dark'"
 
     - name: Configure GNOME theme
@@ -171,11 +171,11 @@
         key: "/org/gnome/desktop/interface/gtk-theme"
         value: "'Adwaita-dark'"
 
-    - name: Show battery percentage in topbar 
+    - name: Show battery percentage in topbar
       dconf:
         key: "/org/gnome/desktop/interface/show-battery-percentage"
         value: "true"
-    
+
     - name: Disable dynamic workspaces
       dconf:
         key: "/org/gnome/mutter/dynamic-workspaces"
@@ -201,7 +201,7 @@
         key: "/org/gnome/desktop/sound/event-sounds"
         value: "false"
 
-           
+
     # ===
     # ZSH
     # ===
@@ -234,32 +234,110 @@
     # ======
     # Neovim
     # ======
-    - name: Install Neovim dependencies and useful packages
-      become: yes
-      ansible.builtin.apt:
-        name:
-          - npm
-          - python3.11-venv
-          - libtree-sitter0
-        state: present
+    - name: Install and configure Neovim
+      when: neovim.install is defined
+      block:
+      - name: Install Neovim dependencies and useful packages
+        become: yes
+        ansible.builtin.apt:
+          name:
+            - npm
+            - python3.11-venv
+            - libtree-sitter0
+          state: present
 
-    - name: Download Neovim appimage
-      ansible.builtin.get_url:
-        url: "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
-        dest: /tmp/nvim
-        mode: '0755'
-      register: download_result
-      until: download_result is succeeded
-      retries: 3
-      delay: 5
+      - name: Download Neovim appimage
+        ansible.builtin.get_url:
+          url: "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+          dest: /tmp/nvim
+          mode: '0755'
+        register: download_result
+        until: download_result is succeeded
+        retries: 3
+        delay: 5
 
-    - name: Copy appimage to /usr/local/bin
-      become: yes
-      ansible.builtin.copy:
-        src: "/tmp/nvim"
-        dest: "/usr/local/bin/nvim"
-        mode: preserve
+      - name: Copy appimage to /usr/local/bin
+        become: yes
+        ansible.builtin.copy:
+          src: "/tmp/nvim"
+          dest: "/usr/local/bin/nvim"
+          mode: preserve
 
+      - name: Clone dotfiles
+        ansible.builtin.git:
+          repo: 'https://github.com/santisoler/dotfiles'
+          dest: '~/.dotfiles'
+          clone: yes
+          update: yes
+
+      - name: Stow Neovim configs
+        ansible.builtin.shell: |
+          cd ~/.dotfiles
+          stow nvim
+
+      - name: Install packages with packer
+        ansible.builtin.shell: |
+          nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+      - name: Install lsp and linters with Mason
+        ansible.builtin.shell: |
+          nvim --headless -c 'MasonInstall {{ item }}' -c "quitall"
+        loop:
+          - pyright
+          - black
+          - flake8
+          - mypy
+          - ruff-lsp
+          - prettier
+          - rstcheck
+          - stylelint
+          # - cppcheck
+          # - chktex
+          - proselint
+          - shellcheck
+          - markdownlint
+          - rstcheck
+          # - tidy
+
+
+    # =========
+    # Miniforge
+    # =========
+    - name: Install Mambaforge
+      vars:
+        uname: Linux
+        architecture: x86_64
+      block:
+        - name: Download Mambaforge
+          get_url:
+            url: "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-{{ uname }}-{{ architecture }}.sh"
+            dest: /tmp/install-miniforge.sh
+            mode: 0550
+
+        - name: Create mambaforge folder
+          file:
+            path: ~/.mambaforge
+            state: directory
+
+        - name: Run the installer
+          shell: /tmp/install-miniforge.sh -b -u -p "$HOME/.mambaforge"
+
+        - name: Clone dotfiles
+          ansible.builtin.git:
+            repo: 'https://github.com/santisoler/dotfiles'
+            dest: '~/.dotfiles'
+            clone: yes
+            update: yes
+
+        - name: Copy conda configs
+          ansible.builtin.shell: |
+            cd ~/.dotfiles
+            cp -r conda/. ~
+
+
+    # ==============
+    # Extra dotfiles
+    # ==============
     - name: Clone dotfiles
       ansible.builtin.git:
         repo: 'https://github.com/santisoler/dotfiles'
@@ -267,31 +345,22 @@
         clone: yes
         update: yes
 
-    - name: Stow Neovim configs
+    - name: Stow dotfiles
       ansible.builtin.shell: |
         cd ~/.dotfiles
-        stow nvim
-
-    - name: Install packages with packer
-      ansible.builtin.shell: |
-        nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-
-    - name: Install lsp and linters with Mason
-      ansible.builtin.shell: |
-        nvim --headless -c 'MasonInstall {{ item }}' -c "quitall"
+        stow {{ item }}
       loop:
-        - pyright
-        - black
-        - flake8
-        - mypy
-        - ruff-lsp
-        - prettier
-        - rstcheck
-        - stylelint
-        # - cppcheck
-        # - chktex 
-        - proselint
-        - shellcheck
-        - markdownlint
-        - rstcheck
-        # - tidy
+        - bin
+        - fonts
+        - zathura
+        - git
+        - ipython
+        - tmux
+        - templates
+
+    - name: Copy dotfiles
+      ansible.builtin.shell: |
+        cd ~/.dotfiles
+        cp -r {{ item }}/. ~
+      loop:
+        - profile
