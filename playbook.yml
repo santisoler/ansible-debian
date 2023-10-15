@@ -1,32 +1,32 @@
-- name: Update and install packages
-  hosts: localhost
+- hosts: localhost
   vars_files:
     - config.yml
   tasks:
+
+    # ============
+    # apt packages
+    # ============
     - name: Update packages 
       become: true
-      ansible.builtin.apt:
+      package:
         update_cache: yes
 
     - name: Upgrade packages
       become: true
-      ansible.builtin.apt:
+      package:
         upgrade: yes
       when: apt.upgrade is not defined or apt.upgrade
 
     - name: Install packages
       become: true
-      ansible.builtin.apt:
+      package:
         name: "{{ apt.packages }}"
         state: latest
       when: apt.packages is defined
 
-
-- name: Install flatpak packages
-  hosts: localhost
-  vars_files:
-    - config.yml
-  tasks:
+    # =======
+    # Flatpak
+    # =======
     - name: Install flatpak
       become: true
       ansible.builtin.apt:
@@ -34,7 +34,7 @@
         state: latest
       when: flatpak.install is not defined or flatpak.install
 
-    - name: Add the flathub flatpak repository remote to the user installation
+    - name: Add flathub remote
       community.general.flatpak_remote:
         name: flathub
         state: present
@@ -48,3 +48,166 @@
         state: present
         method: user
       when: flatpak.install is not defined or flatpak.install
+        
+    # ================
+    # GNOME Extensions
+    # ================
+    - name: Install GNOME extensions
+      become: true
+      package:
+        name:
+          - gnome-shell-extension-bluetooth-quick-connect
+          - gnome-shell-extension-dashtodock
+          - gnome-shell-extension-hide-activities
+          - gnome-shell-extension-weather
+          - gnome-shell-extensions-extra
+
+    - name: Enable GNOME extensions
+      dconf:
+        key: "/org/gnome/shell/enabled-extensions"
+        value: "['user-theme@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com', 'Hide_Activities@shay.shayel.org', 'openweather-extension@jenslody.de', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'apps-menu@gnome-shell-extensions.gcampax.github.com', 'native-window-placement@gnome-shell-extensions.gcampax.github.com', 'no-overview@fthx']"
+    
+    - name: Configure Dash to Dock (no intellihide)
+      dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/intellihide"
+        value: "false"
+
+    - name: Configure Dash to Dock (no hotkeys)
+      dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/hot-keys"
+        value: "false"
+          
+    # =========
+    # Shortcuts
+    # =========
+    - name: Remove shortcuts to favourite applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-1"
+        value: ['']
+    - name: Remove shortcuts to favourite applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-2"
+        value: ['']
+    - name: Remove shortcuts to favourite applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-3"
+        value: ['']
+    - name: Remove shortcuts to favourite applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-4"
+        value: ['']
+    - name: Remove shortcuts to favourite applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-5"
+        value: ['']
+    - name: Remove shortcuts to favourite applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-6"
+        value: ['']
+    - name: Remove shortcuts to favourite applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-7"
+        value: ['']
+    - name: Remove shortcuts to favourite applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-8"
+        value: ['']
+    - name: Remove shortcuts to favourite applications
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-application-9"
+        value: ['']
+
+    - name: Shortcuts to switch workspaces
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-1"
+        value: ['<Super>1']
+    - name: Shortcuts to switch workspaces
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-2"
+        value: ['<Super>2']
+    - name: Shortcuts to switch workspaces
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-3"
+        value: ['<Super>3']
+    - name: Shortcuts to switch workspaces
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-4"
+        value: ['<Super>4']
+    - name: Shortcuts to move windows to workspaces
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-1"
+        value: ['<Super><Shift>1']
+
+    - name: Close windows
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/close"
+        value: ['<Super>q']
+
+    - name: Full screen
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/toggle-fullscreen"
+        value: ['<Super>f']
+
+    - name: Disable hide application
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/minimize"
+        value: ['']
+
+    - name: Lockscreen
+      dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/screensaver"
+        value: ['<Super>o']
+
+    - name: Tiling
+      dconf:
+        key: "/org/gnome/mutter/keybindings/toggle-tiled-right"
+        value: ['<Super>Right', '<Super>l']
+
+    - name: Tiling
+      dconf:
+        key: "/org/gnome/mutter/keybindings/toggle-tiled-left"
+        value: ['<Super>Left','<Super>h']
+
+    - name: Maximize
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/toggle-maximized"
+        value: ['<Alt>F10','<Super>i']
+
+    # ====================
+    # GNOME Configurations
+    # ====================
+    - name: Configure dark color scheme
+      dconf:
+        key: "/org/gnome/desktop/interface/color-scheme" 
+        value: "'prefer-dark'"
+
+    - name: Configure GNOME theme
+      dconf:
+        key: "/org/gnome/desktop/interface/gtk-theme"
+        value: "'Adwaita-dark'"
+
+    - name: Show battery percentage in topbar 
+      dconf:
+        key: "/org/gnome/desktop/interface/show-battery-percentage"
+        value: "true"
+    
+    - name: Disable dynamic workspaces
+      dconf:
+        key: "/org/gnome/mutter/dynamic-workspaces"
+        value: "false"
+
+    - name: Set number of workspaces
+      dconf:
+        key: "/org/gnome/desktop/wm/preferences/num-workspaces"
+        value: "false"
+
+    - name: Configure touchpad
+      dconf:
+        key: "/org/gnome/desktop/peripherals/touchpad/click-method"
+        value: "'areas'"
+
+    - name: Configure Caps Lock as extra escape
+      dconf:
+        key: "/org.gnome.desktop.input-sources/xkb-options"
+        value: ['caps:escape']
+
