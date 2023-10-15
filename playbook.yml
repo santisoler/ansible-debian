@@ -1,0 +1,50 @@
+- name: Update and install packages
+  hosts: localhost
+  vars_files:
+    - config.yml
+  tasks:
+    - name: Update packages 
+      become: true
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Upgrade packages
+      become: true
+      ansible.builtin.apt:
+        upgrade: yes
+      when: apt.upgrade is not defined or apt.upgrade
+
+    - name: Install packages
+      become: true
+      ansible.builtin.apt:
+        name: "{{ apt.packages }}"
+        state: latest
+      when: apt.packages is defined
+
+
+- name: Install flatpak packages
+  hosts: localhost
+  vars_files:
+    - config.yml
+  tasks:
+    - name: Install flatpak
+      become: true
+      ansible.builtin.apt:
+        name: flatpak
+        state: latest
+      when: flatpak.install is not defined or flatpak.install
+
+    - name: Add the flathub flatpak repository remote to the user installation
+      community.general.flatpak_remote:
+        name: flathub
+        state: present
+        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+        method: user
+      when: flatpak.install is not defined or flatpak.install
+
+    - name: Install flatpak packages
+      community.general.flatpak:
+        name: "{{ flatpak.packages }}"
+        state: present
+        method: user
+      when: flatpak.install is not defined or flatpak.install

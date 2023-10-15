@@ -1,0 +1,54 @@
+apt:
+  upgrade: true
+  packages:
+    # Shell tools
+    - git
+    - tmux
+    - zsh
+    - terminator
+    - curl
+    - wget
+    - stow
+    - vim
+    - gnupg
+    - tree
+    - ripgrep
+    - xclip
+    - wipe 
+    - unzip
+    - pdftk
+    - pandoc
+    - gh # github cli
+    - yt-dlp
+    - python3-pip
+    # Office
+    - thunderbird
+    - keepassxc
+    - libreoffice
+    - zathura
+    - zathura-cb
+    - zathura-djvu
+    - zathura-pdf-poppler
+    - zathura-ps
+    # Internet
+    - chromium
+    - syncthing
+    # Utilities
+    - ntp
+    - grsync
+    # Multimedia
+    - mpv
+    - gthumb
+    - gimp
+    - inkscape
+    - darktable
+    # Other
+    - qgis
+
+flatpak:
+  install: true
+  packages:
+    - org.zotero.Zotero
+    - com.slack.Slack
+    - org.telegram.desktop
+    - com.mattermost.Desktop
