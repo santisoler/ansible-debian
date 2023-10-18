@@ -1,0 +1,4 @@
+---
+# vars file for gnome-configs
+config_keyboard_shortcuts: true
+config_look_and_feel: true

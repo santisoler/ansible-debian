@@ -1,0 +1,10 @@
+# vars file for gnome-extensions
+
+extensions:
+  - gnome-shell-extension-bluetooth-quick-connect
+  - gnome-shell-extension-dashtodock
+  - gnome-shell-extension-hide-activities
+  - gnome-shell-extension-weather
+  - gnome-shell-extensions-extra
+
+enabled_extensions: "['user-theme@gnome-shell-extensions.gcampax.github.com', 'dash-to-dock@micxgx.gmail.com', 'Hide_Activities@shay.shayel.org', 'openweather-extension@jenslody.de', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'apps-menu@gnome-shell-extensions.gcampax.github.com', 'native-window-placement@gnome-shell-extensions.gcampax.github.com', 'no-overview@fthx']"

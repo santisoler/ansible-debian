@@ -1,0 +1,98 @@
+- name: Configure GNOME's feel and look
+  when: config_look_and_feel
+  block:
+  - name: Configure dark color scheme
+    dconf:
+      key: "/org/gnome/desktop/interface/color-scheme"
+      value: "'prefer-dark'"
+  - name: Configure GNOME theme
+    dconf:
+      key: "/org/gnome/desktop/interface/gtk-theme"
+      value: "'Adwaita-dark'"
+  - name: Show battery percentage in topbar
+    dconf:
+      key: "/org/gnome/desktop/interface/show-battery-percentage"
+      value: "true"
+  - name: Disable dynamic workspaces
+    dconf:
+      key: "/org/gnome/mutter/dynamic-workspaces"
+      value: "false"
+  - name: Set number of workspaces
+    dconf:
+      key: "/org/gnome/desktop/wm/preferences/num-workspaces"
+      value: "false"
+  - name: Configure touchpad
+    dconf:
+      key: "/org/gnome/desktop/peripherals/touchpad/click-method"
+      value: "'areas'"
+  - name: Configure Caps Lock as extra escape
+    dconf:
+      key: "/org/gnome/desktop/input-sources/xkb-options"
+      value: ['caps:escape']
+  - name: Disable event sounds
+    dconf:
+      key: "/org/gnome/desktop/sound/event-sounds"
+      value: "false"
+
+
+- name: Keyboard Shortcuts
+  when: config_keyboard_shortcuts
+  block:
+    - name: Remove shortcuts to favourite applications
+      dconf:
+        key: "/org/gnome/shell/keybindings/switch-to-application-{{ item }}"
+        value: ['']
+      loop: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    - name: Shortcuts to switch workspaces
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-{{ item }}"
+        value: ['<Super>{{ item }}']
+      loop: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    - name: Close windows
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/close"
+        value: ['<Super>q']
+    - name: Full screen
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/toggle-fullscreen"
+        value: ['<Super>f']
+    - name: Disable hide application
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/minimize"
+        value: ['']
+    - name: Lockscreen
+      dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/screensaver"
+        value: ['<Super>o']
+    - name: Tiling right
+      dconf:
+        key: "/org/gnome/mutter/keybindings/toggle-tiled-right"
+        value: ['<Super>Right', '<Super>l']
+    - name: Tiling left
+      dconf:
+        key: "/org/gnome/mutter/keybindings/toggle-tiled-left"
+        value: ['<Super>Left','<Super>h']
+    - name: Maximize
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/toggle-maximized"
+        value: ['<Alt>F10','<Super>i']
+    - name: Use Super+d for launching overview
+      dconf:
+        key: "/org/gnome/shell/keybindings/toggle-overview"
+        value: ['<Super>d']
+    - name: Switch to workspace left
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-left"
+        value: ['<Super>Page_Up', '<Super><Alt>Left', '<Control><Alt>Left', '<Super>comma']
+    - name: Switch to workspace right
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-right"
+        value: ['<Super>Page_Down', '<Super><Alt>Right', '<Control><Alt>Right', '<Super>period']
+    - name: Move window to workspace left
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-left"
+        value: ['<Super><Shift>Page_Up', '<Super><Shift><Alt>Left', '<Control><Shift><Alt>Left', '<Super><Shift>comma']
+    - name: Move window to workspace right
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-right"
+        value: ['<Super><Shift>Page_Down', '<Super><Shift><Alt>Right', '<Control><Shift><Alt>Right', '<Super><Shift>period']

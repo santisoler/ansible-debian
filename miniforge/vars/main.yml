@@ -1,0 +1,6 @@
+---
+# vars file for miniforge
+uname: Linux
+architecture: x86_64
+install_dir: "$HOME/.mambaforge"
+

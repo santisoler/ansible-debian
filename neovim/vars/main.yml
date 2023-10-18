@@ -1,0 +1,23 @@
+---
+# vars file for neovim
+dependencies:
+  - npm
+  - python3.11-venv
+  - libtree-sitter0
+mason_packages:
+  - pyright
+  - black
+  - flake8
+  - mypy
+  - ruff-lsp
+  - prettier
+  - rstcheck
+  - stylelint
+  - proselint
+  - shellcheck
+  - markdownlint
+  - rstcheck
+  # - cppcheck
+  # - chktex
+  # - tidy
+

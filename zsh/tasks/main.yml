@@ -1,0 +1,25 @@
+- name: Install zsh
+  become: true
+  package:
+    name:
+      - zsh
+    state: present
+
+- name: Clone dotfiles
+  ansible.builtin.git:
+    repo: 'https://github.com/santisoler/dotfiles'
+    dest: '~/.dotfiles'
+    clone: yes
+    update: yes
+
+- name: Stow zsh configs
+  ansible.builtin.shell: |
+    cd ~/.dotfiles
+    stow zsh
+
+- name: Change shell to zsh
+  become: yes
+  ansible.builtin.user:
+    name: "{{ ansible_env.USER }}"
+    shell: /usr/bin/zsh
+

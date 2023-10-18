@@ -1,0 +1,24 @@
+- name: Add repositories to sources list
+  become: true
+  ansible.builtin.apt_repository:
+    repo: "{{ item }}"
+    state: present
+  loop: "{{ repositories }}"
+
+- name: Update packages
+  become: true
+  package:
+    update_cache: yes
+
+- name: Upgrade packages
+  become: true
+  package:
+    upgrade: yes
+  when: upgrade is not defined or upgrade
+
+- name: Install packages
+  become: true
+  package:
+    name: "{{ packages }}"
+    state: latest
+  when: packages is defined

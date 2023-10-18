@@ -1,0 +1,24 @@
+# --------------------------------------
+# Install and configure GNOME Extensions
+# --------------------------------------
+- name: Install GNOME extensions
+  become: true
+  package:
+    name:
+      - "{{ item }}"
+  with_items: "{{ extensions }}"
+
+- name: Enable GNOME extensions
+  dconf:
+    key: "/org/gnome/shell/enabled-extensions"
+    value: "{{ enabled_extensions }}"
+
+- name: Configure Dash to Dock (no intellihide)
+  dconf:
+    key: "/org/gnome/shell/extensions/dash-to-dock/intellihide"
+    value: "false"
+
+- name: Configure Dash to Dock (no hotkeys)
+  dconf:
+    key: "/org/gnome/shell/extensions/dash-to-dock/hot-keys"
+    value: "false"

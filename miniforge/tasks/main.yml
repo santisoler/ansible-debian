@@ -1,0 +1,27 @@
+---
+# tasks file for miniforge
+- name: Download Mambaforge
+  get_url:
+    url: "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-{{ uname }}-{{ architecture }}.sh"
+    dest: /tmp/install-miniforge.sh
+    mode: 0550
+
+- name: Create mambaforge folder
+  file:
+    path: "{{ install_dir }}"
+    state: directory
+
+- name: Run the installer
+  shell: /tmp/install-miniforge.sh -b -u -p "{{ install_dir }}"
+
+- name: Clone dotfiles
+  ansible.builtin.git:
+    repo: 'https://github.com/santisoler/dotfiles'
+    dest: '~/.dotfiles'
+    clone: yes
+    update: yes
+
+- name: Copy conda configs
+  ansible.builtin.shell: |
+    cd ~/.dotfiles
+    cp -r conda/. ~

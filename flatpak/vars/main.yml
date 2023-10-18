@@ -1,0 +1,6 @@
+repository: https://dl.flathub.org/repo/flathub.flatpakrepo
+packages:
+  - org.zotero.Zotero
+  - com.slack.Slack
+  - org.telegram.desktop
+  - com.mattermost.Desktop

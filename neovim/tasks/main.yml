@@ -1,0 +1,45 @@
+- name: Install Neovim dependencies and useful packages
+  become: true
+  package:
+    name:
+      - "{{ item }}"
+    state: present
+  loop: "{{ dependencies }}"
+
+- name: Download Neovim appimage
+  ansible.builtin.get_url:
+    url: "https://github.com/neovim/neovim/releases/latest/download/nvim.appimage"
+    dest: /tmp/nvim
+    mode: '0755'
+  register: download_result
+  until: download_result is succeeded
+  retries: 3
+  delay: 5
+
+- name: Copy appimage to /usr/local/bin
+  become: true
+  ansible.builtin.copy:
+    src: "/tmp/nvim"
+    dest: "/usr/local/bin/nvim"
+    mode: preserve
+
+- name: Clone dotfiles
+  ansible.builtin.git:
+    repo: 'https://github.com/santisoler/dotfiles'
+    dest: '~/.dotfiles'
+    clone: yes
+    update: yes
+
+- name: Stow Neovim configs
+  ansible.builtin.shell: |
+    cd ~/.dotfiles
+    stow nvim
+
+- name: Install packages with packer
+  ansible.builtin.shell: |
+    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
+- name: Install lsp and linters with Mason
+  ansible.builtin.shell: |
+    nvim --headless -c 'MasonInstall {{ item }}' -c "quitall"
+  with_items: "{{ mason_packages }}"

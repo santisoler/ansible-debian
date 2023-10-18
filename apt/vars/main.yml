@@ -1,0 +1,60 @@
+# ----------------------------------------------------------------
+# Variables for configuring apt, upgrading and installing packages
+# ----------------------------------------------------------------
+
+upgrade: true
+
+repositories:
+  - deb http://deb.debian.org/debian bookworm main non-free-firmware
+  - deb-src http://deb.debian.org/debian bookworm main non-free-firmware
+  - deb http://deb.debian.org/debian bookworm-updates main non-free-firmware
+  - deb-src http://deb.debian.org/debian bookworm-updates main non-free-firmware
+  - deb http://security.debian.org/debian-security/ bookworm-security main non-free-firmware
+  - deb-src http://security.debian.org/debian-security/ bookworm-security main non-free-firmware
+  - deb http://deb.debian.org/debian bookworm-backports main non-free-firmware
+  - deb-src http://deb.debian.org/debian bookworm-backports main non-free-firmware
+
+packages:
+  # Shell tools
+  - git
+  - tmux
+  - zsh
+  - terminator
+  - curl
+  - wget
+  - stow
+  - vim
+  - gnupg
+  - tree
+  - ripgrep
+  - xclip
+  - wipe
+  - unzip
+  - pdftk
+  - pandoc
+  - gh # github cli
+  - yt-dlp
+  - python3-pip
+  # Office
+  - thunderbird
+  - keepassxc
+  - libreoffice
+  - zathura
+  - zathura-cb
+  - zathura-djvu
+  - zathura-pdf-poppler
+  - zathura-ps
+  # Internet
+  - chromium
+  - syncthing
+  # Utilities
+  - ntp
+  - grsync
+  # Multimedia
+  - mpv
+  - gthumb
+  - gimp
+  - inkscape
+  - darktable
+  # Other
+  - qgis

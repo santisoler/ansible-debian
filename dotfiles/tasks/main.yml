@@ -1,0 +1,26 @@
+- name: Clone dotfiles
+  ansible.builtin.git:
+    repo: 'https://github.com/santisoler/dotfiles'
+    dest: '~/.dotfiles'
+    clone: yes
+    update: yes
+
+- name: Stow dotfiles
+  ansible.builtin.shell: |
+    cd ~/.dotfiles
+    stow {{ item }}
+  loop:
+    - bin
+    - fonts
+    - zathura
+    - git
+    - ipython
+    - tmux
+    - templates
+
+- name: Copy dotfiles
+  ansible.builtin.shell: |
+    cd ~/.dotfiles
+    cp -r {{ item }}/. ~
+  loop:
+    - profile
