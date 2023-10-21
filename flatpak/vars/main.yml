@@ -4,3 +4,4 @@ packages:
   - com.slack.Slack
   - org.telegram.desktop
   - com.mattermost.Desktop
+  - org.getzola.zola
