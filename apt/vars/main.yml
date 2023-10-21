@@ -19,7 +19,7 @@ packages:
   - git
   - tmux
   - zsh
-  - terminator
+  - htop
   - curl
   - wget
   - stow
@@ -49,6 +49,7 @@ packages:
   - chromium
   - syncthing
   # Utilities
+  - terminator
   - ntp
   - grsync
   # Multimedia
