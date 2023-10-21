@@ -80,6 +80,10 @@
       dconf:
         key: "/org/gnome/shell/keybindings/toggle-overview"
         value: ['<Super>d']
+    - name: Unbind super key for overview
+      dconf:
+        key: "/org/gnome/mutter/overlay-key"
+        value: ['']
     - name: Switch to workspace left
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-left"
