@@ -27,6 +27,7 @@ packages:
   - gnupg
   - tree
   - ripgrep
+  - fzf
   - xclip
   - wipe
   - unzip
