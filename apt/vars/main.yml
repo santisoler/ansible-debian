@@ -37,6 +37,7 @@ packages:
   - zathura-ps
   # Fonts
   - fonts-recommended
+  - ttf-mscorefonts-installer
   # Internet
   - chromium
   - syncthing
