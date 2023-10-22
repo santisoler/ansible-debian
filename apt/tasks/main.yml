@@ -1,9 +1,12 @@
-- name: Add repositories to sources list
+- name: Use own sources.list
   become: true
-  ansible.builtin.apt_repository:
-    repo: "{{ item }}"
-    state: present
-  loop: "{{ repositories }}"
+  ansible.builtin.template:
+    src: templates/sources.list
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: '0644'
+    backup: true
 
 - name: Update packages
   become: true
