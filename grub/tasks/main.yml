@@ -1,0 +1,13 @@
+- name: Configure grub
+  become: true
+  block:
+
+  - name: Configure grub with no timeout
+    ansible.builtin.lineinfile:
+      path: /etc/default/grub
+      regexp: '^GRUB_TIMEOUT='
+      line: GRUB_TIMEOUT=0
+
+  - name: Update grub
+    shell: |
+      update-grub
