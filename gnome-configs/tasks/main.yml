@@ -46,6 +46,20 @@
       key: "/org/gnome/desktop/sound/event-sounds"
       value: "false"
 
+- name: Configure nautilus and file chooser
+  block:
+    - name: Set list view as the default
+      dconf:
+        key: "/org/gnome/nautilus/preferences/default-folder-viewer"
+        value: "'list-view'"
+    - name: Sort directories first (gtk4)
+      dconf:
+        key: "/org/gtk/gtk4/settings/file-chooser/sort-directories-first"
+        value: "true"
+    - name: Sort directories first (gtk)
+      dconf:
+        key: "/org/gtk/settings/file-chooser/sort-directories-first"
+        value: "true"
 
 - name: Keyboard Shortcuts
   when: config_keyboard_shortcuts
