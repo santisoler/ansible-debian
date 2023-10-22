@@ -29,10 +29,14 @@
     dconf:
       key: "/org/gnome/desktop/wm/preferences/num-workspaces"
       value: "false"
-  - name: Configure touchpad
+  - name: Configure touchpad (touch area)
     dconf:
       key: "/org/gnome/desktop/peripherals/touchpad/click-method"
       value: "'areas'"
+  - name: Configure touchpad (scroll)
+    dconf:
+      key: "/org/gnome/desktop/peripherals/touchpad/natural-scroll"
+      value: "false"
   - name: Configure Caps Lock as extra escape
     dconf:
       key: "/org/gnome/desktop/input-sources/xkb-options"
