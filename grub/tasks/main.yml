@@ -7,6 +7,7 @@
       path: /etc/default/grub
       regexp: '^GRUB_TIMEOUT='
       line: GRUB_TIMEOUT=0
+      backup: true
 
   - name: Update grub
     shell: |
