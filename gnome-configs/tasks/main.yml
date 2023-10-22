@@ -83,7 +83,7 @@
     - name: Unbind super key for overview
       dconf:
         key: "/org/gnome/mutter/overlay-key"
-        value: ['']
+        value: "''"
     - name: Switch to workspace left
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-left"
