@@ -45,6 +45,8 @@ packages:
   - zathura-djvu
   - zathura-pdf-poppler
   - zathura-ps
+  # Fonts
+  - fonts-recommended
   # Internet
   - chromium
   - syncthing
