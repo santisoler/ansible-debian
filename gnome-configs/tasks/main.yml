@@ -1,6 +1,14 @@
 - name: Configure GNOME's feel and look
   when: config_look_and_feel
   block:
+  - name: Install icon packages
+    package:
+      name: papirus-icon-theme
+      state: latest
+  - name: Set Papirus icons
+    dconf:
+      key: "/org/gnome/desktop/interface/icon-theme"
+      value: "'Papirus-Dark'"
   - name: Configure dark color scheme
     dconf:
       key: "/org/gnome/desktop/interface/color-scheme"
