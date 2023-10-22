@@ -17,6 +17,7 @@
     - ipython
     - tmux
     - templates
+    - terminator
 
 - name: Copy dotfiles
   ansible.builtin.shell: |
