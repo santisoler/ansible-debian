@@ -1,0 +1,10 @@
+- name: Configure bluetooth
+  become: true
+  block:
+
+  - name: Disable bluetooth at login
+    ansible.builtin.lineinfile:
+      path: /etc/bluetooth/main.conf
+      regexp: '^#AutoEnable='
+      line: AutoEnable=true
+      backup: true
