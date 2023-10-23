@@ -45,6 +45,10 @@
     dconf:
       key: "/org/gnome/desktop/sound/event-sounds"
       value: "false"
+  - name: Enable minimize and maximize buttons in windows
+    dconf:
+      key: "/org/gnome/desktop/wm/preferences/button-layout"
+      value: "'appmenu:minimize,maximize,close'"
 
 - name: Configure nautilus and file chooser
   block:
