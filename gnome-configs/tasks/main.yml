@@ -49,6 +49,10 @@
     dconf:
       key: "/org/gnome/desktop/wm/preferences/button-layout"
       value: "'appmenu:minimize,maximize,close'"
+  - name: Workspaces in all displays
+    dconf:
+      key: "/org/gnome/mutter/workspaces-only-on-primary"
+      value: "false"
 
 - name: Configure nautilus and file chooser
   block:
