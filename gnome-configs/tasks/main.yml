@@ -79,6 +79,19 @@
         line: QT_QPA_PLATFORM="xcb;wayland"
         backup: true
 
+- name: Disable automatic updates
+  block:
+    - name: Disable updates
+      become: true
+      dconf:
+        key: "/org/gnome/software/download-updates"
+        value: "false"
+    - name: Disable updates
+      become: false
+      dconf:
+        key: "/org/gnome/software/download-updates"
+        value: "false"
+
 - name: Keyboard Shortcuts
   when: config_keyboard_shortcuts
   block:
