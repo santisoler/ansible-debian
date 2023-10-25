@@ -69,6 +69,16 @@
         key: "/org/gtk/settings/file-chooser/sort-directories-first"
         value: "true"
 
+- name: Setup environmental variables
+  become: true
+  block:
+    - name: Configure QT QPA Platforms to xcb and wayland
+      ansible.builtin.lineinfile:
+        path: /etc/environment
+        regexp: "^QT_QPA_PLATFORM="
+        line: QT_QPA_PLATFORM="xcb;wayland"
+        backup: true
+
 - name: Keyboard Shortcuts
   when: config_keyboard_shortcuts
   block:
