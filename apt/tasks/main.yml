@@ -21,7 +21,15 @@
 
 - name: Install packages
   become: true
-  package:
-    name: "{{ packages }}"
-    state: latest
-  when: packages is defined
+  block:
+    - name: Install from stable
+      package:
+        name: "{{ packages }}"
+        state: latest
+      when: packages is defined
+    - name: Install from backports
+      package:
+        name: "{{ backports.packages }}"
+        state: latest
+        default_release: "{{ backports.distribution }}"
+      when: backports is defined

@@ -30,6 +30,11 @@ repositories:
       - contrib
       - non-free-firmware
 
+backports:
+  distribution: bookworm-backports
+  packages:
+    - yt-dlp
+
 packages:
   # Shell tools
   - git
@@ -50,7 +55,6 @@ packages:
   - pdftk
   - pandoc
   - gh # github cli
-  - yt-dlp
   - python3-pip
   # Office
   - thunderbird
