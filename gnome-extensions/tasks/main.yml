@@ -13,12 +13,33 @@
     key: "/org/gnome/shell/enabled-extensions"
     value: "{{ enabled_extensions }}"
 
-- name: Configure Dash to Dock (no intellihide)
-  dconf:
-    key: "/org/gnome/shell/extensions/dash-to-dock/intellihide"
-    value: "false"
-
-- name: Configure Dash to Dock (no hotkeys)
-  dconf:
-    key: "/org/gnome/shell/extensions/dash-to-dock/hot-keys"
-    value: "false"
+- name: Configure Dash to Dock
+  block:
+    - name: No intellihide
+      dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/intellihide"
+        value: "false"
+    - name: No hotkeys
+      dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/hot-keys"
+        value: "false"
+    - name: Animation time
+      dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/animation-time"
+        value: 0.1
+    - name: Show delay
+      dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/show-delay"
+        value: 0.0
+    - name: Hide trash
+      dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/show-trash"
+        value: "false"
+    - name: Hide trash
+      dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/show-trash"
+        value: "false"
+    - name: Don't show dock on urgent notify
+      dconf:
+        key: "/org/gnome/shell/extensions/dash-to-dock/show-dock-urgent-notify"
+        value: "false"
