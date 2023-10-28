@@ -75,6 +75,7 @@ packages:
   - terminator
   - ntp
   - grsync
+  - gnome-software-plugin-flatpak
   # Multimedia
   - mpv
   - gthumb
