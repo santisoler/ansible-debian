@@ -76,6 +76,7 @@ packages:
   - ntp
   - grsync
   - gnome-software-plugin-flatpak
+  - diodon # clipboard for gnome
   # Multimedia
   - mpv
   - gthumb
