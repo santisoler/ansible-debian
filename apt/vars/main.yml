@@ -65,6 +65,8 @@ packages:
   - zathura-djvu
   - zathura-pdf-poppler
   - zathura-ps
+  - latexmk
+  - texlive
   # Fonts
   - fonts-recommended
   - ttf-mscorefonts-installer
