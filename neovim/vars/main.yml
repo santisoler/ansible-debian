@@ -4,6 +4,7 @@ dependencies:
   - npm
   - python3.11-venv
   - libtree-sitter0
+  - tidy # lint html files
 mason_packages:
   - pyright
   - black
