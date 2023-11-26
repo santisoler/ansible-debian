@@ -18,6 +18,8 @@ mason_packages:
   - shellcheck
   - markdownlint
   - rstcheck
+  - rust-analyzer
+  - tree-sitter-cli
   # - cppcheck
   # - chktex
   # - tidy
