@@ -68,6 +68,10 @@
       dconf:
         key: "/org/gtk/settings/file-chooser/sort-directories-first"
         value: "true"
+    - name: Default columns in list view
+      dconf:
+        key: "/org/gnome/nautilus/list-view/default-visible-columns"
+        value: ['name', 'type', 'size', 'date_modified']
 
 - name: Setup environmental variables
   become: true
@@ -133,14 +137,14 @@
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/toggle-maximized"
         value: ['<Alt>F10','<Super>i']
-    - name: Use Super+d for launching overview
+    - name: Use Super+d and Super+s for launching overview
       dconf:
         key: "/org/gnome/shell/keybindings/toggle-overview"
-        value: ['<Super>d']
-    - name: Unbind super key for overview
+        value: ['<Super>s', '<Super>d']
+    - name: Make sure to use super key for overview
       dconf:
         key: "/org/gnome/mutter/overlay-key"
-        value: "''"
+        value: "'Super_L'"
     - name: Switch to workspace left
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-left"
