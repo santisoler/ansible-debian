@@ -9,9 +9,8 @@
   with_items: "{{ extensions }}"
 
 - name: Enable GNOME extensions
-  dconf:
-    key: "/org/gnome/shell/enabled-extensions"
-    value: "{{ enabled_extensions }}"
+  shell: gnome-extensions enable {{ item }}
+  loop: "{{ enabled_extensions }}"
 
 - name: Configure Dash to Dock
   block:
