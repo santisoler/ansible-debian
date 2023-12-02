@@ -68,8 +68,6 @@ packages:
   - zathura-ps
   - latexmk
   - texlive
-  # Dev
-  - rust-all
   # Fonts
   - fonts-recommended
   - ttf-mscorefonts-installer
