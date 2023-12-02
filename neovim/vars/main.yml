@@ -20,6 +20,8 @@ mason_packages:
   - rstcheck
   - rust-analyzer
   - tree-sitter-cli
+  - texlab
+  - lua-language-server
   # - cppcheck
   # - chktex
   # - tidy
