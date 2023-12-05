@@ -125,14 +125,14 @@
       dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/screensaver"
         value: ['<Super>o']
-    # - name: Tiling right
-    #   dconf:
-    #     key: "/org/gnome/mutter/keybindings/toggle-tiled-right"
-    #     value: ['<Super>Right', '<Super>l']
-    # - name: Tiling left
-    #   dconf:
-    #     key: "/org/gnome/mutter/keybindings/toggle-tiled-left"
-    #     value: ['<Super>Left','<Super>h']
+    - name: Tiling right
+      dconf:
+        key: "/org/gnome/mutter/keybindings/toggle-tiled-right"
+        value: ['<Super>Right', '<Super>l']
+    - name: Tiling left
+      dconf:
+        key: "/org/gnome/mutter/keybindings/toggle-tiled-left"
+        value: ['<Super>Left','<Super>h']
     - name: Maximize
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/toggle-maximized"
