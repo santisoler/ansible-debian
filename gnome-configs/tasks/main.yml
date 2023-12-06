@@ -2,6 +2,7 @@
   when: config_look_and_feel
   block:
   - name: Install icon packages
+    become: true
     package:
       name: papirus-icon-theme
       state: latest
