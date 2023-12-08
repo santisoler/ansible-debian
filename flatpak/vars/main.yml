@@ -5,3 +5,4 @@ packages:
   - org.telegram.desktop
   - com.mattermost.Desktop
   - us.zoom.Zoom
+  - org.gtk.Gtk3theme.Adwaita-dark
