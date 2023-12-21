@@ -83,6 +83,12 @@
         regexp: "^QT_QPA_PLATFORM="
         line: QT_QPA_PLATFORM="xcb;wayland"
         backup: true
+    - name: Extend PATH
+      ansible.builtin.lineinfile:
+        path: /etc/environment
+        regexp: "^PATH="
+        line: PATH=/bin:/usr/local/games:/usr/games:$PATH
+        backup: true
 
 - name: Disable automatic updates
   block:
