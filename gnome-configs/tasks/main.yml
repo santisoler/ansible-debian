@@ -76,32 +76,13 @@
 
 - name: Setup environmental variables
   become: true
-  block:
-    - name: Configure QT QPA Platforms to xcb and wayland
-      ansible.builtin.lineinfile:
-        path: /etc/environment
-        regexp: "^QT_QPA_PLATFORM="
-        line: QT_QPA_PLATFORM="xcb;wayland"
-        backup: true
-    - name: Extend PATH
-      ansible.builtin.lineinfile:
-        path: /etc/environment
-        regexp: "^PATH="
-        line: PATH=/bin:/usr/local/games:/usr/games:$PATH
-        backup: true
-
-- name: Disable automatic updates
-  block:
-    - name: Disable updates
-      become: true
-      dconf:
-        key: "/org/gnome/software/download-updates"
-        value: "false"
-    - name: Disable updates
-      become: false
-      dconf:
-        key: "/org/gnome/software/download-updates"
-        value: "false"
+  ansible.builtin.template:
+    src: templates/99-env-vars.conf
+    dest: /etc/environment.d/99-env-vars.conf
+    owner: root
+    group: root
+    mode: '0644'
+    backup: true
 
 - name: Keyboard Shortcuts
   when: config_keyboard_shortcuts
