@@ -1,0 +1,78 @@
+- name: Keyboard Shortcuts after installing pop-shell
+  block:
+    - name: Delete shortcuts to apps
+      dconf:
+        key: "/org/gnome/settings-daemon/plugins/media-keys/{{ item }}"
+        value: ['']
+      loop: ["terminal", "home", "email", "www"]
+
+    - name: Remove shortcuts to favourite applications
+      dconf:
+        key: "/org/gnome/shell/keybindings/switch-to-application-{{ item }}"
+        value: ['']
+      loop: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    - name: Shortcuts to switch workspaces
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-{{ item }}"
+        value: ['<Super>{{ item }}']
+      loop: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    - name: Shortcuts to move windows to workspaces
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-{{ item }}"
+        value: ['<Super><Shift>{{ item }}']
+      loop: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    - name: Shortcuts to move windows to monitor up
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-up"
+        value: ['<Super><Shift>Up','<Super><Shift>k']
+    - name: Shortcuts to move windows to monitor down
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-down"
+        value: ['<Super><Shift>Down','<Super><Shift>j']
+    - name: Shortcuts to move windows to monitor left
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-left"
+        value: ['<Super><Shift>Left','<Super><Shift>h']
+    - name: Shortcuts to move windows to monitor right
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-right"
+        value: ['<Super><Shift>Right','<Super><Shift>l']
+
+    - name: Full screen
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/toggle-fullscreen"
+        value: ['<Super>f']
+    - name: Minimize
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/minimize"
+        value: ['<Super>n']
+    - name: Maximize
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/toggle-maximized"
+        value: ['<Alt>F10','<Super>i','<Super>m']
+
+    - name: Launch overview
+      dconf:
+        key: "/org/gnome/shell/keybindings/toggle-overview"
+        value: ['<Super>d']
+    - name: Make sure to use super key for overview
+      dconf:
+        key: "/org/gnome/mutter/overlay-key"
+        value: "'Super_L'"
+
+    - name: Switch to workspace left
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-left"
+        value: ['<Super>Page_Up', '<Super><Alt>Left', '<Control><Alt>Left', '<Super>comma']
+    - name: Switch to workspace right
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-right"
+        value: ['<Super>Page_Down', '<Super><Alt>Right', '<Control><Alt>Right', '<Super>period']
+    - name: Move window to workspace left
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-left"
+        value: ['<Super><Shift>Page_Up', '<Super><Shift><Alt>Left', '<Control><Shift><Alt>Left', '<Super><Shift>comma']
+    - name: Move window to workspace right
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-right"
+        value: ['<Super><Shift>Page_Down', '<Super><Shift><Alt>Right', '<Control><Shift><Alt>Right', '<Super><Shift>period']
