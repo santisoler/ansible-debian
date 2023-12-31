@@ -97,6 +97,27 @@
         key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-{{ item }}"
         value: ['<Super>{{ item }}']
       loop: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    - name: Shortcuts to move windows to workspaces
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-{{ item }}"
+        value: ['<Super><Shift>{{ item }}']
+      loop: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    - name: Shortcuts to move windows to monitor up
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-up"
+        value: ['<Super><Shift>Up','<Super><Shift>k']
+    - name: Shortcuts to move windows to monitor down
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-down"
+        value: ['<Super><Shift>Down','<Super><Shift>j']
+    - name: Shortcuts to move windows to monitor left
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-left"
+        value: ['<Super><Shift>Left','<Super><Shift>h']
+    - name: Shortcuts to move windows to monitor right
+      dconf:
+        key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-right"
+        value: ['<Super><Shift>Right','<Super><Shift>l']
     - name: Close windows
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/close"
