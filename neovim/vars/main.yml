@@ -22,6 +22,7 @@ mason_packages:
   - tree-sitter-cli
   - texlab
   - lua-language-server
+  - ltex-ls
   # - cppcheck
   # - chktex
   # - tidy
