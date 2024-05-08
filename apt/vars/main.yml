@@ -56,6 +56,7 @@ packages:
   - pandoc
   - gh # github cli
   - python3-pip
+  - python-is-python3
   - fd-find
   # Office
   - thunderbird
