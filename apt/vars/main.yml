@@ -57,6 +57,7 @@ packages:
   - gh # github cli
   - python3-pip
   - python-is-python3
+  - ipython3
   - fd-find
   # Office
   - thunderbird
