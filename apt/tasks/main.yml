@@ -33,3 +33,16 @@
         state: latest
         default_release: "{{ backports.distribution }}"
       when: backports is defined
+
+- name: Create symlinks
+  become: false
+  block:
+    - name: Create ~/.local/bin dir
+      ansible.builtin.file:
+        path: ~/.local/bin
+        state: directory
+    - name: Create symlink to Python3
+      ansible.builtin.file:
+        src: /usr/bin/ipython3
+        dest: ~/.local/bin/ipython
+        state: link
