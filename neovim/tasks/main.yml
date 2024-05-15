@@ -41,5 +41,4 @@
 
 - name: Install lsp and linters with Mason
   ansible.builtin.shell: |
-    nvim --headless -c 'MasonInstall {{ item }}' -c "quitall"
-  with_items: "{{ mason_packages }}"
+    nvim --headless -c 'lua MasonAutoInstall(false)' -c "quitall"
