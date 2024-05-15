@@ -7,6 +7,7 @@ dependencies:
   - tidy # lint html files
 mason_packages:
   - pyright
+  - jedi-language-server
   - black
   - flake8
   - mypy
