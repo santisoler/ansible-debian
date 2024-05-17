@@ -59,6 +59,7 @@ packages:
   - python-is-python3
   - ipython3
   - fd-find
+  - bash-completion
   # Office
   - thunderbird
   - keepassxc
