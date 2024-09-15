@@ -90,5 +90,6 @@ packages:
   - gimp
   - inkscape
   - darktable
+  - id3v2
   # Other
   - qgis
