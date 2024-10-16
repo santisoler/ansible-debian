@@ -1,12 +1,12 @@
 ---
 # tasks file for miniforge
-- name: Download Mambaforge
+- name: Download Miniforge
   get_url:
     url: "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-{{ uname }}-{{ architecture }}.sh"
     dest: /tmp/install-miniforge.sh
     mode: 0550
 
-- name: Create mambaforge folder
+- name: Create miniforge folder
   file:
     path: "{{ install_dir }}"
     state: directory
