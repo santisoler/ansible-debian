@@ -2,28 +2,7 @@
 
 extensions:
   - gnome-shell-extension-appindicator
-  - gnome-shell-extension-arc-menu
   - gnome-shell-extension-bluetooth-quick-connect
   - gnome-shell-extension-caffeine
-  - gnome-shell-extension-dashtodock
-  - gnome-shell-extension-gsconnect
-  - gnome-shell-extension-hide-activities
   - gnome-shell-extension-manager
-  - gnome-shell-extension-no-annoyance
-  - gnome-shell-extension-panel-osd
   - gnome-shell-extensions-extra
-
-enabled_extensions:
-  - 'user-theme@gnome-shell-extensions.gcampax.github.com'
-  - 'dash-to-dock@micxgx.gmail.com'
-  - 'places-menu@gnome-shell-extensions.gcampax.github.com'
-  - 'bluetooth-quick-connect@bjarosze.gmail.com'
-  - 'apps-menu@gnome-shell-extensions.gcampax.github.com'
-  - 'noannoyance@daase.net'
-  - 'caffeine@patapon.info'
-  - 'gsconnect@andyholmes.github.io'
-  - 'ubuntu-appindicators@ubuntu.com'
-  - 'windowsNavigator@gnome-shell-extensions.gcampax.github.com'
-  - 'Hide_Activities@shay.shayel.org'
-  - 'native-window-placement@gnome-shell-extensions.gcampax.github.com'
-  - 'no-overview@fthx'

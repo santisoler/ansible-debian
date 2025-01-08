@@ -105,19 +105,19 @@
     - name: Shortcuts to move windows to monitor up
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-up"
-        value: ['<Super><Shift>Up','<Super><Shift>k']
+        value: ['<Super><Shift>Up','<Super><Control>k']
     - name: Shortcuts to move windows to monitor down
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-down"
-        value: ['<Super><Shift>Down','<Super><Shift>j']
+        value: ['<Super><Shift>Down','<Super><Control>j']
     - name: Shortcuts to move windows to monitor left
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-left"
-        value: ['<Super><Shift>Left','<Super><Shift>h']
+        value: ['<Super><Shift>Left','<Super><Control>h']
     - name: Shortcuts to move windows to monitor right
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/move-to-monitor-right"
-        value: ['<Super><Shift>Right','<Super><Shift>l']
+        value: ['<Super><Shift>Right','<Super><Control>l']
     - name: Close windows
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/close"
@@ -126,22 +126,22 @@
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/toggle-fullscreen"
         value: ['<Super>f']
-    - name: Disable hide application
+    - name: Hide application
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/minimize"
-        value: ['']
-    - name: Lockscreen
+        value: ['<Super>m']
+    - name: Lockscreen (override to not use Super+l)
       dconf:
         key: "/org/gnome/settings-daemon/plugins/media-keys/screensaver"
-        value: ['<Super>o']
+        value: ['<Super>Escape']
     - name: Tiling right
       dconf:
         key: "/org/gnome/mutter/keybindings/toggle-tiled-right"
-        value: ['<Super>Right', '<Super>l']
+        value: ['<Super>Right', '<Super><Shift>l']
     - name: Tiling left
       dconf:
         key: "/org/gnome/mutter/keybindings/toggle-tiled-left"
-        value: ['<Super>Left','<Super>h']
+        value: ['<Super>Left','<Super><Shift>h']
     - name: Maximize
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/toggle-maximized"
@@ -157,16 +157,16 @@
     - name: Switch to workspace left
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-left"
-        value: ['<Super>Page_Up', '<Super><Alt>Left', '<Control><Alt>Left', '<Super>comma']
+        value: ['<Super>Page_Up', '<Super><Alt>Left', '<Control><Alt>Left', '<Super>bracketleft']
     - name: Switch to workspace right
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/switch-to-workspace-right"
-        value: ['<Super>Page_Down', '<Super><Alt>Right', '<Control><Alt>Right', '<Super>period']
+        value: ['<Super>Page_Down', '<Super><Alt>Right', '<Control><Alt>Right', '<Super>bracketright']
     - name: Move window to workspace left
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-left"
-        value: ['<Super><Shift>Page_Up', '<Super><Shift><Alt>Left', '<Control><Shift><Alt>Left', '<Super><Shift>comma']
+        value: ['<Super><Shift>Page_Up', '<Super><Shift><Alt>Left', '<Control><Shift><Alt>Left', '<Super><Shift>bracketleft']
     - name: Move window to workspace right
       dconf:
         key: "/org/gnome/desktop/wm/keybindings/move-to-workspace-right"
-        value: ['<Super><Shift>Page_Down', '<Super><Shift><Alt>Right', '<Control><Shift><Alt>Right', '<Super><Shift>period']
+        value: ['<Super><Shift>Page_Down', '<Super><Shift><Alt>Right', '<Control><Shift><Alt>Right', '<Super><Shift>bracketright']
