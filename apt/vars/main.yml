@@ -6,32 +6,32 @@ upgrade: true
 
 repositories:
   - url: http://deb.debian.org/debian
-    distribution: bookworm
+    distribution: trixie
     components:
       - main
       - contrib
       - non-free-firmware
   - url: http://deb.debian.org/debian
-    distribution: bookworm-updates
+    distribution: trixie-updates
     components:
       - main
       - contrib
       - non-free-firmware
   - url: http://deb.debian.org/debian
-    distribution: bookworm-backports
+    distribution: trixie-backports
     components:
       - main
       - contrib
       - non-free-firmware
   - url: http://security.debian.org/debian-security/
-    distribution: bookworm-security
+    distribution: trixie-security
     components:
       - main
       - contrib
       - non-free-firmware
 
 backports:
-  distribution: bookworm-backports
+  distribution: trixie-backports
   packages:
     - yt-dlp
 
@@ -55,6 +55,7 @@ packages:
   - pdftk
   - pandoc
   - gh # github cli
+  - git-delta
   - python3-pip
   - python-is-python3
   - black
@@ -65,13 +66,9 @@ packages:
   - thunderbird
   - keepassxc
   - libreoffice
-  - zathura
-  - zathura-cb
-  - zathura-djvu
-  - zathura-pdf-poppler
-  - zathura-ps
   - latexmk
   - texlive
+  - tealdeer
   # Fonts
   - fonts-recommended
   - ttf-mscorefonts-installer
@@ -79,8 +76,7 @@ packages:
   - chromium
   - syncthing-gtk
   # Utilities
-  - terminator
-  - ntp
+  - ntpsec
   - grsync
   - gnome-software-plugin-flatpak
   - diodon # clipboard for gnome
@@ -90,6 +86,3 @@ packages:
   - gimp
   - inkscape
   - darktable
-  - id3v2
-  # Other
-  - qgis
