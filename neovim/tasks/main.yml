@@ -16,15 +16,6 @@
   retries: 3
   delay: 5
 
-- name: Create /opt/nvim directory
-  become: true
-  ansible.builtin.file:
-    path: /opt/nvim
-    state: directory
-    owner: root
-    group: root
-    mode: '755'
-
 - name: Unpack it
   become: true
   ansible.builtin.unarchive:
@@ -52,11 +43,3 @@
   ansible.builtin.shell: |
     cd ~/.dotfiles
     stow nvim
-
-# - name: Install packages with packer
-#   ansible.builtin.shell: |
-#     nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-# 
-# - name: Install lsp and linters with Mason
-#   ansible.builtin.shell: |
-#     nvim --headless -c 'lua MasonAutoInstall(false)' -c "quitall"

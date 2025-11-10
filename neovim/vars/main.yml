@@ -2,6 +2,6 @@
 # vars file for neovim
 dependencies:
   - npm
-  - python3.11-venv
-  - libtree-sitter0
+  - python3.13-venv
+  - libtree-sitter0.22
   - tidy # lint html files
