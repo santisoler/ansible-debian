@@ -7,6 +7,6 @@
     - zsh
     - neovim
     - miniforge
-    # - dotfiles
+    - dotfiles
     - grub
     - bluetooth
