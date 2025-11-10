@@ -4,7 +4,7 @@
 if ! which ansible-playbook &> /dev/null
 then
     sudo apt update
-    sudo apt install ansible
+    sudo apt install ansible python3-apt
 fi
 
 # Execute playbook
