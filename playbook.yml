@@ -2,11 +2,11 @@
   roles:
     - apt
     - flatpak
-    - gnome-extensions
-    - gnome-configs
+    # - gnome-extensions
+    # - gnome-configs
     - zsh
     - neovim
     - miniforge
-    - dotfiles
-    - grub
+    # - dotfiles
+    # - grub
     - bluetooth
