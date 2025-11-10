@@ -8,5 +8,5 @@
     - neovim
     - miniforge
     # - dotfiles
-    # - grub
+    - grub
     - bluetooth
