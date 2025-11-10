@@ -1,0 +1,29 @@
+
+# sudo apt update && sudo apt install extrepo -y
+
+- name: Update packages
+  become: true
+  package:
+    update_cache: yes
+
+- name: Install extrepo
+  become: true
+  package:
+    name: extrepo
+    state: latest
+
+- name: Add Librewolf repo
+  become: true
+  ansible.builtin.shell: |
+    extrepo enable librewolf
+
+- name: Update packages
+  become: true
+  package:
+    update_cache: yes
+
+- name: Install librewolf
+  become: true
+  package:
+    name: librewolf
+    state: latest
