@@ -74,7 +74,6 @@ packages:
   - ttf-mscorefonts-installer
   # Internet
   - chromium
-  - syncthing-gtk
   # Utilities
   - ntpsec
   - grsync
