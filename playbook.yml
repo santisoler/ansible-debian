@@ -4,8 +4,8 @@
     - librewolf
     - syncthing
     - flatpak
-    # - gnome-extensions
-    # - gnome-configs
+    - gnome-configs
+    - gnome-extensions
     - zsh
     - neovim
     - miniforge
