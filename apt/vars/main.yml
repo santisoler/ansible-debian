@@ -68,6 +68,7 @@ packages:
   - libreoffice
   - latexmk
   - texlive
+  - texlive-bibtex-extra
   - tealdeer
   # Fonts
   - fonts-recommended
