@@ -57,6 +57,7 @@ packages:
   - gh # github cli
   - git-delta
   - python3-pip
+  - pipx
   - python-is-python3
   - black
   - ipython3
