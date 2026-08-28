@@ -1,0 +1,30 @@
+- name: Add repo using key from URL
+  become: true
+  ansible.builtin.deb822_repository:
+    name: syncthing
+    types: deb
+    uris: https://apt.syncthing.net/
+    suites: syncthing
+    components: stable-v2
+    signed_by: https://syncthing.net/release-key.gpg
+
+- name: Update packages
+  become: true
+  ansible.builtin.package:
+    update_cache: yes
+
+- name: Install (force reinstall) syncthing
+  become: true
+  ansible.builtin.shell: |
+    apt install --reinstall syncthing
+
+- name: Install syncthing-gtk
+  ansible.builtin.package:
+    name: syncthing-gtk
+    state: present
+
+- name: Enable syncthing service
+  ansible.builtin.systemd_service:
+    name: syncthing@{{ lookup('env', 'USER') }}
+    enabled: true
+    state: started

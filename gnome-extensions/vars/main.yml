@@ -1,8 +1,5 @@
 # vars file for gnome-extensions
 
 extensions:
-  - gnome-shell-extension-appindicator
-  - gnome-shell-extension-bluetooth-quick-connect
-  - gnome-shell-extension-caffeine
   - gnome-shell-extension-manager
-  - gnome-shell-extensions-extra
+  - gnome-shell-extension-appindicator

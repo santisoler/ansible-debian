@@ -1,11 +1,14 @@
 - hosts: localhost
   roles:
     - apt
+    - librewolf
+    - syncthing
     - flatpak
-    - gnome-extensions
     - gnome-configs
+    - gnome-extensions
     - zsh
-    - neovim
+    # - neovim
+    - helix
     - miniforge
     - dotfiles
     - grub

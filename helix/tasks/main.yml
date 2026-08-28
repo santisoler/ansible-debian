@@ -1,0 +1,28 @@
+- name: Download Helix
+  ansible.builtin.get_url:
+    url: https://github.com/helix-editor/helix/releases/download/25.07.1/helix_25.7.1-1_amd64.deb
+    dest: /tmp/helix.deb
+    checksum: sha256:c9ff7ee3113f039c21c3ff31e8e2b71d1cc51a2c3e6c39face36e3cf25fe8788
+    mode: "0644"
+
+- name: Install it
+  become: true
+  ansible.builtin.apt:
+    deb: /tmp/helix.deb
+
+- name: Install pipx
+  become: true
+  ansible.builtin.apt:
+    name: pipx
+
+- name: Install some LSPs
+
+- name: Install LSPs
+  vars:
+    pipx_packages:
+      - ty
+      - ruff
+  community.general.pipx:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ pipx_packages }}"

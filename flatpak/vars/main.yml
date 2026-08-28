@@ -2,7 +2,6 @@ repository: https://dl.flathub.org/repo/flathub.flatpakrepo
 packages:
   - org.zotero.Zotero
   - com.slack.Slack
-  - org.telegram.desktop
   - com.mattermost.Desktop
   - us.zoom.Zoom
   - org.gtk.Gtk3theme.Adwaita-dark
